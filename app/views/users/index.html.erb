@@ -1,0 +1,45 @@
+<h1>Hello <%= @user.node.name%></h1>
+<br />
+<h2><%= @user.node.name%> 's Friends</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <% @user.friends.each do |friend| %>
+      <tr>
+        <td><%= friend.name %></td>
+        <td><%= link_to 'Unfriend', user_remove_friend_path(@user.node.neo_id, friend_id: friend.neo_id), data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<br />
+
+<h2>Suggested Friends</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <% @user.suggested_friends.each do |friend| %>
+      <tr>
+        <td><%= friend["name"] %></td>
+        <td><%= link_to 'Add as Friend', user_add_friend_path(@user.node.neo_id, friend_id: friend["id"]), data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+<br>
+
+<%= link_to 'New User', new_user_path %>
